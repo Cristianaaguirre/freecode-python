@@ -1,21 +1,3 @@
-"""
-    Receives a list of strings that are arithmetic problems and 
-    returns the problems arranged vertically and side-by-side. 
-    If result is set to True, the answers are displayed as well.
-
-    Possible errors:
-        `Error: Too many problems.`: More than 5 problems supplied to the function.
-        `Error: Operator must be '+' or '-'.`: The appropriate operators the function accepts are addition (+) and subtraction (-). 
-                Multiplication and division will return an error. 
-                Other operators not mentioned in this bullet point are not included.
-        `Error: Numbers must only contain digits.`: Each number (operand) should only contain digits.
-        `Error: Numbers cannot be more than four digits.`: Each operand (aka number on each side of the operator) has a max of four digits in width.
-"""
-
-# pylint: disable=missing-module-docstring
-# pylint: disable=missing-class-docstring
-# pylint: disable=missing-function-docstring
-
 def arithmetic_arranger(arr, show = False):
     if len(arr) > 5:
         return "Error: To many problems."
