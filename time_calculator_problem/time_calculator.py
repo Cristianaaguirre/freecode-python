@@ -1,21 +1,3 @@
-# pylint: disable=missing-module-docstring
-# pylint: disable=missing-class-docstring
-# pylint: disable=missing-function-docstring
-
-"""
-  - EL TIEMPO SIEMPRE SE MANEJA EN 12 HORAS, AM O PM
-  - SE DEBE SUMAR EL TIEMPO Y DETERMINAR SI NOS ENCONTRAMOS EN HORA PM O AM
-  - SI EL RESULTADO DE LA SUMA DE HORAS PASA DE UN DIA AL OTRO, DEBO PONER, NEXT DAY
-  - SI SON MAS DE UN DIA, DEBO PONER CUANTOS
-  - SI EL TERCER PARAMETRO ES INTRODUCIDO, DEBO CAMBIAR LOS DIAS, ES DECIR SI PASA DE MARTES, DEBO DEVOLVER MIERCOLES Y CONSECUTIVOS
-  - LOS MINUTOS SIEMPRE SERAN MENOS DE 60 PERO LAS HORAS PUEDEN SER CUALQUIER NUMERO
-
-  add_time("3:00 PM", "25:10")
-
-  # Returns: 6:10 PM
-
-"""
-
 def add_time(star_time, duration_time, day = ''):
 
 
