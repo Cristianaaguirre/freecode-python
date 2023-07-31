@@ -1,7 +1,7 @@
 def add_time(star_time, duration_time, day = ''):
 
 
-  # estableciendo variables fijas
+  # setting variables
 
     chunks = [i.split(':') for i in (star_time[:-3], duration_time)]
 
@@ -18,7 +18,7 @@ def add_time(star_time, duration_time, day = ''):
         "Sunday": 6
     }
 
-  # calculo de horas y minutos
+  # calculating hours and minutes
 
     hrs= start_h + duration_h
     mins = start_m + duration_m
@@ -28,7 +28,7 @@ def add_time(star_time, duration_time, day = ''):
 
     total_h, total_m = (hrs + 0, mins) if mins < 60 else (hrs + 1, mins - 60)
 
-  # estableciendo nuevo formato
+  # setting the base format
 
     count_day = total_h // 24
 
