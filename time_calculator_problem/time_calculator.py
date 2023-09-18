@@ -1,7 +1,5 @@
-def add_time(star_time, duration_time, day = ''):
-
-
-  # setting variables
+def add_time(star_time, duration_time, day=''):
+    # setting variables
 
     chunks = [i.split(':') for i in (star_time[:-3], duration_time)]
 
@@ -9,18 +7,18 @@ def add_time(star_time, duration_time, day = ''):
     period = star_time[-2:]
 
     days = {
-        "Monday": 0, 
-        "Tuesday": 1, 
-        "Wednesday": 2, 
-        "Thursday": 3, 
-        "Friday": 4, 
-        "Saturday": 5, 
+        "Monday": 0,
+        "Tuesday": 1,
+        "Wednesday": 2,
+        "Thursday": 3,
+        "Friday": 4,
+        "Saturday": 5,
         "Sunday": 6
     }
 
-  # calculating hours and minutes
+    # calculating hours and minutes
 
-    hrs= start_h + duration_h
+    hrs = start_h + duration_h
     mins = start_m + duration_m
 
     if period == 'PM':
@@ -28,7 +26,7 @@ def add_time(star_time, duration_time, day = ''):
 
     total_h, total_m = (hrs + 0, mins) if mins < 60 else (hrs + 1, mins - 60)
 
-  # setting the base format
+    # setting the base format
 
     count_day = total_h // 24
 
@@ -54,7 +52,7 @@ def add_time(star_time, duration_time, day = ''):
 
         final_d = (days[day.lower().capitalize()] + count_day) % 7
 
-        for k,v in days.items():
+        for k, v in days.items():
             if v == final_d:
                 final_d = k
 
@@ -66,6 +64,5 @@ def add_time(star_time, duration_time, day = ''):
 
         return f'{final_date} {final_d} ({count_day} days later)'
 
-test = add_time("11:43 PM", "24:20", "tueSday")
 
-print(test)
+print(add_time("11:43 PM", "24:20", "tueSday"))

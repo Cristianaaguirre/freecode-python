@@ -1,6 +1,4 @@
-
 class Category():
-
     def __init__(self, category_name):
         self.category_name = category_name
         self.ledger = []
@@ -13,23 +11,23 @@ class Category():
             d = item['description'][:23]
             a = '%.2f' % item['amount']
 
-            lines.append( f"{d}{a:>{30-len(d)}}" )
+            lines.append(f"{d}{a:>{30 - len(d)}}")
 
         lines.append(f'Total: {self.balance}')
 
         return '\n'.join(lines)
 
-    def deposit(self, amount, description = ''):
+    def deposit(self, amount, description=''):
 
         self.balance += amount
         self.ledger.append(
             {
-                'amount' : amount,
-                'description' : description
+                'amount': amount,
+                'description': description
             }
         )
 
-    def withdraw(self, amount, description = ''):
+    def withdraw(self, amount, description=''):
         if self.check_funds(amount):
             self.deposit(-amount, description)
 
@@ -47,45 +45,55 @@ class Category():
     def check_funds(self, amount):
         return self.balance > amount
 
+    def get_withdraws_amount(self):
 
-"""
-- necestias los montos negativos
-- necesitas calcular esos porcentajes
+        withdraws = filter(lambda w: w['amount'] < 0, self.ledger)
 
-"""
+        return sum(w['amount'] for w in withdraws)
 
-def create_spen_chart(categories):
 
-    arr = []
+def create_spend_chart(categories):
 
-    for item in categories:
+    # set total amount of withdraws
+    total_amount = sum([c.get_withdraws_amount() for c in categories])
 
-        name = item.category_name
-        withdraws = filter(lambda x : x['amount'] < 0, item.ledger)
+    # set arr with category data
+    withdraws_percentage = [
+        {'name': c.category_name,
+         'amount': round(c.get_withdraws_amount() * 100 / total_amount),
+         'sign': ' ' * 3}
+        for c in categories
+    ]
 
-        amount = sum( [round(item['amount']) for item in withdraws] )
+    bar_chart = 'Percentage spent by category\n'
 
-        arr.append((name, -amount))
-
+    # get a bar chart
     for i in range(100, -1, -10):
-      formater = f""
-      pass
 
-    print(arr)
+        bar = ''
 
+        for w in withdraws_percentage:
+            if w['amount'] == i:
+                w['sign'] = 'o  '
+            bar += w['sign']
 
-comida = Category('Comida')
-ropa = Category('Ropa')
+        bar_chart += str(i).rjust(3, ' ') + '| ' + bar + "\n"
 
-comida.deposit(1000, 'deposito inicial')
-comida.withdraw(10.15, 'golosina')
-comida.withdraw(15.89, 'restaurante y mas comida')
-
-comida.transfer(50, ropa)
-comida.transfer(1000, ropa)
-
-# print(comida)
-
-create_spen_chart([comida, ropa])
+        if i == 0:
+            bar_chart += ' ' * 4 + '-' * (len(bar) + 1)
 
 
+food = Category('Comida')
+clothes = Category('Ropa')
+
+food.deposit(1000, 'deposito inicial')
+food.withdraw(10.15, 'golosina')
+food.withdraw(15.89, 'restaurante y mas comida')
+
+food.transfer(50, clothes)
+food.transfer(1000, clothes)
+
+clothes.deposit(1000)
+clothes.withdraw(300)
+
+print(create_spend_chart([food, clothes]))
